@@ -6,12 +6,13 @@ package buildid
 
 import (
 	"bytes"
-	"cmd/go/internal/cfg"
 	"fmt"
 	"io"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/yanjunhui/god/internal/cfg"
 )
 
 var (
