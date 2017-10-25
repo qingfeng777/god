@@ -831,7 +831,7 @@ var GoTools = map[string]targetDir{
 	"cmd/trace":     ToTool,
 	"cmd/vet":       ToTool,
 	"code.google.com/p/go.tools/cmd/cover": StalePath,
-	"code.google.com/p/go.tools/github.com/yanjunhui/goddoc": StalePath,
+	"code.google.com/p/go.tools/cmd/godoc": StalePath,
 	"code.google.com/p/go.tools/cmd/vet":   StalePath,
 }
 

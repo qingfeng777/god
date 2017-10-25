@@ -21,8 +21,15 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/yanjunhui/god/internal/cfg"
+	"strings"
+
 	"github.com/yanjunhui/god/internal/browser"
+	"github.com/yanjunhui/god/internal/cfg"
+)
+
+const (
+	Golang = "golang.org/x"
+	Github = "github.com/golang"
 )
 
 // httpClient is the default HTTP client, but a variable so it can be
@@ -79,7 +86,23 @@ func GetMaybeInsecure(importPath string, security SecurityMode) (urlStr string, 
 		if err != nil {
 			return "", nil, err
 		}
-		u.RawQuery = "go-get=1"
+		i := strings.Index(importPath, Golang)
+		var githubUrl string
+		if i > -1 {
+			if i < len(Golang) {
+				path := strings.Split(importPath[i+len(Golang):], "/")
+				if len(path) >= 2 {
+					githubUrl = Github + "/" + path[1]
+				}
+				u, err = url.Parse(scheme + "://" + githubUrl)
+				if err != nil {
+					return "", nil, err
+				}
+			}
+		} else {
+			u.RawQuery = "go-get=1"
+		}
+
 		urlStr = u.String()
 		if cfg.BuildV {
 			log.Printf("Fetching %s", urlStr)

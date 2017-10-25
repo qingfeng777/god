@@ -159,7 +159,7 @@ func init() {
 }
 
 // Note that flags consulted by other parts of the code
-// (for example, buildV) are in github.com/yanjunhui/god/internal/cfg.
+// (for example, buildV) are in cmd/go/internal/cfg.
 
 var buildAsmflags []string   // -asmflags flag
 var buildGcflags []string    // -gcflags flag
@@ -1100,12 +1100,12 @@ func allArchiveActions(root *Action) []*Action {
 // do runs the action graph rooted at root.
 func (b *Builder) Do(root *Action) {
 	if _, ok := cfg.OSArchSupportsCgo[cfg.Goos+"/"+cfg.Goarch]; !ok && cfg.BuildContext.Compiler == "gc" {
-		fmt.Fprintf(os.Stderr, "github.com/yanjunhui/god: unsupported GOOS/GOARCH pair %s/%s\n", cfg.Goos, cfg.Goarch)
+		fmt.Fprintf(os.Stderr, "cmd/go: unsupported GOOS/GOARCH pair %s/%s\n", cfg.Goos, cfg.Goarch)
 		os.Exit(2)
 	}
 	for _, tag := range cfg.BuildContext.BuildTags {
 		if strings.Contains(tag, ",") {
-			fmt.Fprintf(os.Stderr, "github.com/yanjunhui/god: -tags space-separated list contains comma\n")
+			fmt.Fprintf(os.Stderr, "cmd/go: -tags space-separated list contains comma\n")
 			os.Exit(2)
 		}
 	}
@@ -2625,7 +2625,7 @@ func checkGccgoBin() {
 	if gccgoErr == nil {
 		return
 	}
-	fmt.Fprintf(os.Stderr, "github.com/yanjunhui/god: gccgo: %s\n", gccgoErr)
+	fmt.Fprintf(os.Stderr, "cmd/go: gccgo: %s\n", gccgoErr)
 	os.Exit(2)
 }
 

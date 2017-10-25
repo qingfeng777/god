@@ -6,13 +6,12 @@ package buildid
 
 import (
 	"bytes"
+	"github.com/yanjunhui/god/internal/cfg"
 	"fmt"
 	"io"
 	"os"
 	"strconv"
 	"strings"
-
-	"github.com/yanjunhui/god/internal/cfg"
 )
 
 var (

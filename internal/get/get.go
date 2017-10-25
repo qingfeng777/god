@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // Package get implements the ``go get'' command.
-package main
+package get
 
 import (
 	"fmt"
@@ -431,7 +431,7 @@ func downloadPackage(p *load.Package) error {
 		if filepath.Clean(list[0]) == filepath.Clean(cfg.GOROOT) {
 			return fmt.Errorf("cannot download, $GOPATH must not be set to $GOROOT. For more details see: 'go help gopath'")
 		}
-		if _, err := os.Stat(filepath.Join(list[0], "src/github.com/yanjunhui/god/alldocs.go")); err == nil {
+		if _, err := os.Stat(filepath.Join(list[0], "src/cmd/go/alldocs.go")); err == nil {
 			return fmt.Errorf("cannot download, %s is a GOROOT, not a GOPATH. For more details see: 'go help gopath'", list[0])
 		}
 		p.Internal.Build.Root = list[0]

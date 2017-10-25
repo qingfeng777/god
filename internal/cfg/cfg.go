@@ -119,7 +119,7 @@ func findGOROOT() string {
 // isGOROOT reports whether path looks like a GOROOT.
 //
 // It does this by looking for the path/pkg/tool directory,
-// which is necessary for useful operation of the github.com/yanjunhui/god tool,
+// which is necessary for useful operation of the cmd/go tool,
 // and is not typically present in a GOPATH.
 func isGOROOT(path string) bool {
 	stat, err := os.Stat(filepath.Join(path, "pkg", "tool"))

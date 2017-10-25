@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main
+package get
 
 import (
 	"bytes"
@@ -787,6 +787,15 @@ type metaImport struct {
 }
 
 func splitPathHasPrefix(path, prefix []string) bool {
+
+	/*
+		if len(path) >= 2 && len(prefix) >= 2 {
+
+			if strings.Join(path[0:2], "/") == web.Golang && strings.Join(prefix[0:2], "/") == web.Github {
+				return true
+			}
+		}
+	*/
 	if len(path) < len(prefix) {
 		return false
 	}
@@ -817,16 +826,18 @@ func (m ImportMismatchError) Error() string {
 // An error is returned if there are multiple matches.
 // errNoMatch is returned if none match.
 func matchGoImport(imports []metaImport, importPath string) (metaImport, error) {
+
 	match := -1
 	imp := strings.Split(importPath, "/")
 
 	errImportMismatch := ImportMismatchError{importPath: importPath}
 	for i, im := range imports {
 		pre := strings.Split(im.Prefix, "/")
-
 		if !splitPathHasPrefix(imp, pre) {
-			errImportMismatch.mismatches = append(errImportMismatch.mismatches, im.Prefix)
-			continue
+			if strings.Join(imp[0:2], "/") != web.Golang && strings.Join(pre[0:2], "/") != web.Github {
+				errImportMismatch.mismatches = append(errImportMismatch.mismatches, im.Prefix)
+				continue
+			}
 		}
 
 		if match != -1 {
@@ -838,6 +849,8 @@ func matchGoImport(imports []metaImport, importPath string) (metaImport, error) 
 	if match == -1 {
 		return metaImport{}, errImportMismatch
 	}
+
+	imports[match].Prefix = strings.Replace(imports[match].Prefix, web.Github, web.Golang, -1)
 	return imports[match], nil
 }
 
