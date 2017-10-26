@@ -787,15 +787,6 @@ type metaImport struct {
 }
 
 func splitPathHasPrefix(path, prefix []string) bool {
-
-	/*
-		if len(path) >= 2 && len(prefix) >= 2 {
-
-			if strings.Join(path[0:2], "/") == web.Golang && strings.Join(prefix[0:2], "/") == web.Github {
-				return true
-			}
-		}
-	*/
 	if len(path) < len(prefix) {
 		return false
 	}
@@ -837,6 +828,8 @@ func matchGoImport(imports []metaImport, importPath string) (metaImport, error) 
 			if strings.Join(imp[0:2], "/") != web.Golang && strings.Join(pre[0:2], "/") != web.Github {
 				errImportMismatch.mismatches = append(errImportMismatch.mismatches, im.Prefix)
 				continue
+			} else {
+				imports[i].Prefix = strings.Replace(imports[i].Prefix, web.Github, web.Golang, -1)
 			}
 		}
 
@@ -850,7 +843,6 @@ func matchGoImport(imports []metaImport, importPath string) (metaImport, error) 
 		return metaImport{}, errImportMismatch
 	}
 
-	imports[match].Prefix = strings.Replace(imports[match].Prefix, web.Github, web.Golang, -1)
 	return imports[match], nil
 }
 

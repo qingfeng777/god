@@ -3,6 +3,7 @@
 
 * 完整实现(复制) golang 官方 go get 命令
 * 仅针对 golang.org/x 包资源做特殊处理, 自动跳转到github.com/golang下载文件
+* 会指定下载目录到正确的golang.org/x目录内
 * 可完全替代官方go get 命令
 * 体验与原版go get 完全一致(因为99%代码一致, 哈哈哈哈)
 
