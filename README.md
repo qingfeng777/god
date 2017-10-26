@@ -11,10 +11,11 @@
 
 * 安装 `go get -v -u github.com/yanjunhui/god`
 * 使用方法和参数与官方 `go get` 一致, 将命令修改为 `god get`
+* 如果god命令无法使用, 请执行 `go env` 检查 `GOBIN` 的值是否为 `$GOPATH/bin` (`$GOPATH`替换为你系统实际 `GOPATH` 路径)
 
 ## 示例
-*  `god -v -u golang.org/x/net/ipv4`
- 
+* 单独下载`golang.org/x`资源 `god -v -u golang.org/x/net/ipv4`
+* 下载其他第三方包,可自动解决依赖 `god get -u -v github.com/labstack/echo`
 
 
 ###### ps: 名字命名为 god, 仅仅是取 go download 的简称, 请宗教人士不要误会, 别打我
